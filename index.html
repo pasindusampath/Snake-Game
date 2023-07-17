@@ -1647,12 +1647,21 @@
     }
 
     document.addEventListener('keyup', (e) => {
-        clearInterval(interval);
+
+        //clearInterval(interval);
         if (e.code === "ArrowUp") changeNumber1Direction(1);
         else if (e.code === "ArrowDown") changeNumber1Direction(2);
         else if (e.code === "ArrowRight") changeNumber1Direction(0);
         else if (e.code === "ArrowLeft") changeNumber1Direction(3);
-        interval = setInterval(moveNext,500);
+        else if (e.code === "Space" ){
+            if(interval!==null){
+                clearInterval(interval)
+                interval=null;
+            }else {
+                interval = setInterval(moveNext,500);
+            }
+        }
+
 
     });
     let ar=[];
@@ -1660,6 +1669,11 @@
     let firstNumber= {x:0 , y:0};
     let children = $('.main').children('div');
     let count = 0;
+    let all=1;
+
+
+
+
     for (let i = 0; i < 40; i++) {
         ar[i]=[];
         for (let j = 0; j < 40 ; j++) {
@@ -1674,7 +1688,13 @@
             }
         }
     }
-    let number = generateRandom();
+    ar[20][10].div.css({'background-color':'blue'})
+    let food = {
+        i:20,
+        j:10,
+
+    }
+    let number = generateRandom(0,1600);
     count=0;
     l1:for (let i = 0; i < 40; i++) {
         for (let j = 0; j < 40; j++) {
@@ -1695,7 +1715,7 @@
     }
 
     console.log(ar)
-    function generateRandom(min = 0, max = 1600) {
+    function generateRandom(min, max) {
 
         // find diff
         let difference = max - min;
@@ -1731,10 +1751,12 @@
         //console.log(movableItems)
         for (const movableItem of movableItems) {
             console.log(movableItem.direction)
+            isAte();
             if(movableItem.direction===0){
                 if(movableItem.j+1<40){
                     ar[movableItem.i][movableItem.j+1].div.css({'background-color':'black'})
                     ar[movableItem.i][movableItem.j+1].move = true;
+
                     ar[movableItem.i][movableItem.j+1].number = 1;
                     ar[movableItem.i][movableItem.j+1].direction = movableItem.direction;
                     ar[movableItem.i][movableItem.j].move = false;
@@ -1805,15 +1827,23 @@
                 }
             }
         }
+    }
 
-
+    function isAte(){
+        for (const movableItem of getMovableItems()) {
+            if(movableItem.number===1){
+                if(movableItem.i===food.i && movableItem.j===food.j){
+                    food.i=generateRandom(0,40);
+                    food.j=generateRandom(0,40);
+                    ar[food.i][food.j].div.css({'background-color':'blue'})
+                }
+            }
+        };
     }
 
 
 
-
-
-    let interval = setInterval(moveNext,500);
+    let interval = setInterval(moveNext,50);
 
 
 
