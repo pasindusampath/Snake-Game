@@ -1634,6 +1634,7 @@
 </body>
 <script src="lib/jquery-3.6.4.min.js"></script>
 <script>
+/*
     function changeNumber1Direction(num) {
         //console.log(ar)
         for (const movableItem of getMovableItems()) {
@@ -1756,75 +1757,80 @@
                 if(movableItem.j+1<40){
                     ar[movableItem.i][movableItem.j+1].div.css({'background-color':'black'})
                     ar[movableItem.i][movableItem.j+1].move = true;
-
                     ar[movableItem.i][movableItem.j+1].number = 1;
                     ar[movableItem.i][movableItem.j+1].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
+
                 }else {
                     ar[movableItem.i][0].div.css({'background-color':'black'})
                     ar[movableItem.i][0].move = true;
-                    ar[movableItem.i][0].number = 1;
+                    ar[movableItem.i][0].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i][0].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
+
                 }
             }else if(movableItem.direction===1){
                 if(movableItem.i-1>=0){
                     ar[movableItem.i-1][movableItem.j].div.css({'background-color':'black'})
                     ar[movableItem.i-1][movableItem.j].move = true;
-                    ar[movableItem.i-1][movableItem.j].number = 1;
+                    ar[movableItem.i-1][movableItem.j].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i-1][movableItem.j].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
+
                 }else {
                     ar[movableItem.i+39][movableItem.j].div.css({'background-color':'black'})
                     ar[movableItem.i+39][movableItem.j].move = true;
-                    ar[movableItem.i+39][movableItem.j].number = 1;
+                    ar[movableItem.i+39][movableItem.j].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i+39][movableItem.j].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
+
                 }
             }else if(movableItem.direction===2){
                 if(movableItem.i+1<40){
                     ar[movableItem.i+1][movableItem.j].div.css({'background-color':'black'})
                     ar[movableItem.i+1][movableItem.j].move = true;
-                    ar[movableItem.i+1][movableItem.j].number = 1;
+                    ar[movableItem.i+1][movableItem.j].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i+1][movableItem.j].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
                 }else {
                     ar[movableItem.i-39][movableItem.j].div.css({'background-color':'black'})
                     ar[movableItem.i-39][movableItem.j].move = true;
-                    ar[movableItem.i=39][movableItem.j].number = 1;
+                    ar[movableItem.i=39][movableItem.j].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i-39][movableItem.j].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
                 }
             }else if(movableItem.direction===3){
                 if(movableItem.j-1>=0){
                     ar[movableItem.i][movableItem.j-1].div.css({'background-color':'black'})
                     ar[movableItem.i][movableItem.j-1].move = true;
-                    ar[movableItem.i][movableItem.j-1].number = 1;
+                    ar[movableItem.i][movableItem.j-1].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i][movableItem.j-1].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
                 }else {
                     ar[movableItem.i][movableItem.j+39].div.css({'background-color':'black'})
                     ar[movableItem.i][movableItem.j+39].move = true;
-                    ar[movableItem.i][movableItem.j+39].number = 1;
+                    ar[movableItem.i][movableItem.j+39].number = ar[movableItem.i][movableItem.j].number;
                     ar[movableItem.i][movableItem.j+39].direction = movableItem.direction;
-                    ar[movableItem.i][movableItem.j].move = false;
-                    ar[movableItem.i][movableItem.j].number = -1;
-                    ar[movableItem.i][movableItem.j].div.css({'background-color':'red'})
                 }
+            }
+        }
+    }
+
+
+
+    function addElement() {
+        let movableItems = getMovableItems();
+        for (const movableItem of movableItems) {
+            console.log(movableItems.length)
+            console.log(movableItem.number)
+            if(movableItem.number===movableItems.length){
+                if(movableItem.direction===0){
+                    ar[movableItem.i][movableItem.j-1].number=movableItem.number+1;
+                    ar[movableItem.i][movableItem.j-1].move=true;
+                    ar[movableItem.i][movableItem.j-1].div.css({'background-color':'black'})
+                    ar[movableItem.i][movableItem.j-1].direction=movableItem.direction;
+                    console.log('added')
+                }else if (movableItem.direction===1){
+                    ar[movableItem.i][movableItem.j-1].number=movableItem.number+1;
+                }if (movableItem.direction===2){
+                    ar[movableItem.i][movableItem.j+1].number=movableItem.number+1;
+                }if (movableItem.direction===3){
+                    ar[movableItem.i+1][movableItem.j].number=movableItem.number+1;
+                }
+
             }
         }
     }
@@ -1836,6 +1842,7 @@
                     food.i=generateRandom(0,40);
                     food.j=generateRandom(0,40);
                     ar[food.i][food.j].div.css({'background-color':'blue'})
+                    addElement();
                 }
             }
         };
@@ -1845,6 +1852,7 @@
 
     let interval = setInterval(moveNext,300);
 
+*/
 
 
 </script>
